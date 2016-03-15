@@ -1,4 +1,20 @@
 angular.module('app')
+.service("stateSection", ["$state", function($state){
+	return{
+		getStates : getStates
+	};
+	function getStates() {
+		var states = $state.get();
+		var sections = [];
+		angular.forEach(states, function(value, key) {
+			if(typeof value.resolve == 'object'){
+				var s = value.resolve.sValue();
+				sections.push(s.section);
+			}
+		});
+		return sections;
+	}
+}])
 .service("ParseService", [function() {
 	return {
 		parseCSV: parseCSV

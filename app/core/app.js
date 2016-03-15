@@ -1,7 +1,9 @@
 
 var app = angular.module("app",['templates-dist', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngResource', 'angular-gestures'])
-.controller("mainController", [ '$scope', 'ArrayService', '$document', 'scrollService','$state', function($scope, ArrayService, $document, scrollService,$state) {
+.controller("mainController", [ '$scope', 'ArrayService', '$document', 'scrollService','$state','stateSection', function($scope, ArrayService, $document, scrollService,$state,stateSection) {
 	var direction = 0;
+	var states = stateSection.getStates();
+
 	$document.bind('mousewheel', function(e){
         direction = scrollService.getDirectionOnMouseWheel(e);
         HARDCORESCROLL(direction);
