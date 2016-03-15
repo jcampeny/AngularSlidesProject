@@ -2,8 +2,31 @@
 @import 'mixins';
 @import '../components/section/section';
 
-body {
+body,
+html,
+main,
+[ui-view],
+app-section,
+.section {
+	width:100%;
+	height:100%;
 	margin:0;
 	padding:0;
-	@include opacity(1); 
+	overflow: hidden;
 }
+.section {
+	color: white;
+	position: absolute;
+}
+
+
+
+
+@each $color in $bg-section-colors {
+	$key: nth($color, 1);
+	$value: nth($color, 2);
+	.bg-color-#{$key} {
+		background-color : $value
+	}
+}
+
