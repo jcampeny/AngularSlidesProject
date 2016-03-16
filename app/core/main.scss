@@ -18,10 +18,6 @@ app-section,
 	color: white;
 	position: absolute;
 }
-
-
-
-
 @each $color in $bg-section-colors {
 	$key: nth($color, 1);
 	$value: nth($color, 2);
@@ -29,4 +25,19 @@ app-section,
 		background-color : $value
 	}
 }
+[ui-view]{
+	.ng-enter, 
+	.ng-leave {
+		position: absolute;
+		left: 0;
+		right: 0;
+		@include transition($transition-all);
+	}
+}
+[ui-view]{
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
 

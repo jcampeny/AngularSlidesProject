@@ -1,8 +1,24 @@
 angular.module('app')
 .service("stateSection", ["$state", function($state){
-	return{
-		getStates : getStates
+	var moving = false;
+	var sectionsUsing = {
+		actual : "",
+		next : ""
 	};
+	return{
+		getStates : getStates,
+		getStatePosition : getStatePosition,
+		stateGo : stateGo,
+		isMoving : isMoving,
+		setMoving : setMoving
+	};
+	function isMoving(){
+		return moving;
+	}
+	function setMoving(mv){
+		moving = mv;
+	}
+
 	function getStates() {
 		var states = $state.get();
 		var sections = [];
@@ -14,6 +30,36 @@ angular.module('app')
 		});
 		return sections;
 	}
+	function getStatePosition(actualState, states) {
+		var position = {};
+		angular.forEach(states, function(e,i){
+			if(actualState == e){
+				position.current = states[i];
+				position.previous = states[i-1];
+				position.next = states[i+1];
+			}
+			
+		});
+		return {
+			previous : position.previous,
+			current : position.current,
+			next : position.next
+		};
+	}
+	function stateGo(currentPosition, direction, loop){
+		if(loop){//infinite loop
+			//TODO
+		}else {//normal (without loop)
+			if(direction == "up"){
+				if(currentPosition.previous !== undefined){$state.go('app.'+currentPosition.previous);}
+			}
+			if(direction == "down"){
+				if(currentPosition.next !== undefined){$state.go('app.'+currentPosition.next);}
+			}
+			//todo other direction
+		}
+	}
+
 }])
 .service("ParseService", [function() {
 	return {
