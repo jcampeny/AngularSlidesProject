@@ -1,6 +1,7 @@
 angular.module('app')
 .service("stateSection", ["$state", function($state){
 	var moving = false;
+	var direction;
 	var sectionsUsing = {
 		actual : "",
 		next : ""
@@ -10,8 +11,19 @@ angular.module('app')
 		getStatePosition : getStatePosition,
 		stateGo : stateGo,
 		isMoving : isMoving,
-		setMoving : setMoving
+		setMoving : setMoving,
+		getDirection : getDirection,
+		setDirection : setDirection
 	};
+
+	function getDirection(){
+		return direction;
+	}
+	function setDirection(d){
+		direction = d;
+	}
+
+
 	function isMoving(){
 		return moving;
 	}
@@ -58,6 +70,7 @@ angular.module('app')
 			}
 			//todo other direction
 		}
+		setDirection(direction);
 	}
 
 }])

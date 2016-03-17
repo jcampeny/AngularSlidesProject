@@ -7,8 +7,8 @@ angular.module('app').directive('appSection', function () {
     	var stateSection = $scope.sValue;
     	$scope.bgColor = "bg-color-"+stateSection.section;
     	$scope.state = stateSection.section;
-    	$scope.in = stateSection.transitionIn;
-    	$scope.out = stateSection.transitionOut;
+    	$scope.in = stateSection.enter;
+    	$scope.out = stateSection.leave;
     }
   };
 });

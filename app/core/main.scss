@@ -17,6 +17,7 @@ app-section,
 .section {
 	color: white;
 	position: absolute;
+	font-size: 20em;
 }
 @each $color in $bg-section-colors {
 	$key: nth($color, 1);
