@@ -15,7 +15,7 @@ angular.module('app')
 		getDirection : getDirection,
 		setDirection : setDirection
 	};
-
+ 
 	function getDirection(){
 		return direction;
 	}
@@ -27,7 +27,7 @@ angular.module('app')
 	function isMoving(){
 		return moving;
 	}
-	function setMoving(mv){
+	function setMoving(mv){ 
 		moving = mv;
 	}
 
@@ -37,15 +37,10 @@ angular.module('app')
 		var subsections = "";
 		var i = 0;
 		angular.forEach(states, function(value, key) {
-			//if(value.controller){
-				//var dummyScope = {};
-				//value.controller(dummyScope);
-				//console.log(dummyScope);
-
 				if(typeof value.resolve == 'object'){
 					if(typeof value.parent == 'object'){
 						subsections.parent["subsection"+i] = value.resolve.sValue();
-					}else{
+					}else{ 
 						var s;
 						if(subsections !== ""){
 							s = subsections;
@@ -54,22 +49,20 @@ angular.module('app')
 						}else{
 							s = value.resolve.sValue();
 							sections.push(s.section);
-						}				
+						}				 
 					}
 				}else {
 					if(typeof value.params == 'object'){
 						subsections.parent = value.url;
 					}
-				}
-			//}
+				} 
 		});
 
 		return sections;
 	}
 	function getStatePosition(currentState, states) {
 		var position = {};
-		var actualState = currentState.url;
-					
+		var actualState = currentState.url;			
 		angular.forEach(states, function(e,i){
 			if(actualState == e){ //estado sin subsecciones
 				position.current = states[i];
@@ -83,7 +76,8 @@ angular.module('app')
 					position.next = states[i+1];					
 				}
 			}
-		});
+		}); 
+
 		return {
 			previous : position.previous,
 			current : position.current,

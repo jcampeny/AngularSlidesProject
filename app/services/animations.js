@@ -24,8 +24,8 @@ angular.module('app').service("animationService",[function() {
 		animateLeave : animateLeave
 	};
 
-	/*
-		e: elemento
+	/* 
+		e: elemento  
 		type: es un objeto con dos valores (enter y leave) que coge los valores de enter y leave del resolve
 		direction : dirección del scroll
 		callback : callback de la animación
