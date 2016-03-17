@@ -7,7 +7,8 @@ var app = angular.module("app",['templates-dist', 'ui.router', 'ui.bootstrap', '
 	var loop = false;
 	$document.bind('mousewheel', function(e){
         direction = scrollService.getDirectionOnMouseWheel(e);
-        moveContent(direction);			
+        moveContent(direction);
+
 	});
 	$document.bind('touchmove', function(e){
         direction = scrollService.getDirectionOnTouchMove(e);
@@ -15,7 +16,8 @@ var app = angular.module("app",['templates-dist', 'ui.router', 'ui.bootstrap', '
 	});	
 
 	function moveContent(direction){
-		var state = stateSection.getStatePosition($state.current.url, states);
+		//console.log($state);
+		var state = stateSection.getStatePosition($state.current, states);
 		if(!stateSection.isMoving() && letScroll(state, direction)){
 			stateSection.setMoving(true);
 			stateSection.stateGo(state, direction, loop);
@@ -35,10 +37,13 @@ var app = angular.module("app",['templates-dist', 'ui.router', 'ui.bootstrap', '
 		$urlRouterProvider.otherwise("/section1");
 		$stateProvider
 			.state('app', {url:'/', templateUrl: '../app/core/main.html', abstract: true})
-			.state('app.section1', {url:'section1', template: '<app-section></app-section>', resolve: {sValue: function() {return {section : "section1", enter:"vertical", leave:"vertical"};}}, controller: function($scope, sValue) {$scope.sValue = sValue;}})
-			.state('app.section2', {url:'section2', template: '<app-section></app-section>', resolve: {sValue: function() {return {section : "section2", enter:"vertical", leave:"vertical"};}}, controller: function($scope, sValue) {$scope.sValue = sValue;}})
-			.state('app.section3', {url:'section3', template: '<app-section></app-section>', resolve: {sValue: function() {return {section : "section3", enter:"vertical", leave:"vertical"};}}, controller: function($scope, sValue) {$scope.sValue = sValue;}})
-			.state('app.section4', {url:'section4', template: '<app-section></app-section>', resolve: {sValue: function() {return {section : "section4", enter:"vertical", leave:"vertical"};}}, controller: function($scope, sValue) {$scope.sValue = sValue;}});
+			.state('app.section1', {url:'section1', template: '<app-section></app-section>', resolve: {sValue: function() {return {section : "section1", enter:"horizontal", leave:"horizontal"};}}, controller: function($scope, sValue) {$scope.sValue = sValue;}})
+			.state('app.section2', {url:'section2', templateUrl: '../app/components/section/sectionWithSubSection.html', abstract: true, params : { haveSubSection : true}, controller : function($scope) {$scope.state="section2";$scope.enter="horizontal";$scope.leave="horizontal";}})
+			//.state('app.section2.subsection1', {url:'/subsection1', template: '<app-sub-section></app-sub-section>',params : { subsection : 1 , parentName : "section2"}, controller: function($scope) {$scope.sValue = {section : "section2.subsection1", enter:"vertical", leave:"vertical"};}})
+			.state('app.section2.subsection1', {url:'/subsection1', template: '<app-sub-section></app-sub-section>',params : { subsection : 1 , parentName : "section2"}, resolve: {sValue: function() {return {section : "section2.subsection1", enter:"vertical", leave:"vertical"};}}, controller: function($scope, sValue) {$scope.sValue = sValue;}})
+			.state('app.section2.subsection2', {url:'/subsection2', template: '<app-sub-section></app-sub-section>',params : { subsection : 2 , parentName : "section2"}, resolve: {sValue: function() {return {section : "section2.subsection2", enter:"vertical", leave:"vertical"};}}, controller: function($scope, sValue) {$scope.sValue = sValue;}})
+			.state('app.section3', {url:'section3', template: '<app-section></app-section>', resolve: {sValue: function() {return {section : "section3", enter:"horizontal", leave:"horizontal"};}}, controller: function($scope, sValue) {$scope.sValue = sValue;}})
+			.state('app.section4', {url:'section4', template: '<app-section></app-section>', resolve: {sValue: function() {return {section : "section4", enter:"horizontal", leave:"horizontal"};}}, controller: function($scope, sValue) {$scope.sValue = sValue;}});
  
 		$locationProvider.html5Mode(true);
 		$resourceProvider.defaults.stripTrailingSlashes = false;

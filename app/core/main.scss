@@ -19,6 +19,15 @@ app-section,
 	position: absolute;
 	font-size: 20em;
 }
+.sub-section {
+	font-size: 10em;
+}
+.subsection-title{
+	position: absolute;
+	font-size: 20em;
+	color: white;
+	z-index: 1;
+}
 @each $color in $bg-section-colors {
 	$key: nth($color, 1);
 	$value: nth($color, 2);
