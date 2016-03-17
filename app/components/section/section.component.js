@@ -1,4 +1,4 @@
-angular.module('app').directive('appSection', function () {
+/*angular.module('app').directive('appSection', function () {
   return {
     restrict: 'E',
     templateUrl: '../app/components/section/section.html',
@@ -12,4 +12,12 @@ angular.module('app').directive('appSection', function () {
     }
   };
 });
-
+*/
+angular.module('app')
+    .controller('appSection', ['$scope', 'sValue', function($scope, sValue) {
+            var stateSection = sValue;
+            $scope.bgColor = "bg-color-"+stateSection.section;
+            $scope.state = stateSection.section;
+            $scope.in = stateSection.enter;
+            $scope.out = stateSection.leave;        
+        }]);
