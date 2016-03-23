@@ -8,7 +8,7 @@ angular.module('app').directive('loadingPage', function ($animate, preloader) {
     		'../dist/section3.jpg',
     		'../dist/section1.jpg'
     	];
-    	
+
     	preloader.preload(loadImages ).then(function() {
 			$scope.loadingState = "loaded";
 		});
@@ -16,3 +16,14 @@ angular.module('app').directive('loadingPage', function ($animate, preloader) {
     }
   };
 });
+
+app.animation('.loading-page', ['stateSection','animationService' , function(stateSection, animationService ) {
+	return {
+		addClass: function(element, doneFn) {
+			//animación del loading cuando la página ha sido cargada
+		}
+
+	};
+
+
+}]);
