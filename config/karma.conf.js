@@ -9,7 +9,7 @@ module.exports = function(config) {
         'tests/**/*.js'
     ],
     preprocessors: {
-		'app/**/templates/*.html': 'ng-html2js'
+		'app/**/templates/*.html':  ['ngbootstrapfix', 'ng-html2js']
     },
     reporters: [ 'progress' ],
     colors: true,
@@ -17,6 +17,7 @@ module.exports = function(config) {
     browsers: [ 'PhantomJS' ],
     singleRun: true,
     plugins: [
+        'karma-ng-bootstrap-fix-preprocessor',
 		'karma-phantomjs-launcher',
 		'karma-jasmine',
 		'karma-ng-html2js-preprocessor'

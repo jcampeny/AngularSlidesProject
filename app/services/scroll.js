@@ -33,7 +33,11 @@ angular.module('app').service("scrollService",[ '$document', function($document)
 		}else {											   //horizontal
 			direction = (pathX < 0) ?  "left" :   "right";
 		}
-
+		/*Borrar esto en un futuro si realmente queremos diferenciar scrol vertical de horizontal*/
+		if(direction == "left"){direction = "up";}
+		if (direction == "right") {direction = "down";}
+		/*--*/
+		
         lastX = currentX;
         lastY = currentY;
         return direction;

@@ -20,6 +20,7 @@
     "karma": "~0.13.9",
     "karma-jasmine": "~0.3.6",
     "karma-ng-html2js-preprocessor": "~0.1.0",
-    "karma-phantomjs-launcher": "~0.2.1"
+    "karma-phantomjs-launcher": "~0.2.1",
+    "karma-ng-bootstrap-fix-preprocessor" :  "0.1.0"
   }
 }

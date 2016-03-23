@@ -1,4 +1,4 @@
-describe('stateService', function() {
+/*describe('stateService', function() {
   var scope, stateSection;
 
   beforeEach(module("app"));
@@ -8,3 +8,4 @@ describe('stateService', function() {
   }));
 
 });
+*/
