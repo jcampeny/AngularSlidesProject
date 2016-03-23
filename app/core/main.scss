@@ -32,7 +32,8 @@ app-section,
 	$key: nth($color, 1);
 	$value: nth($color, 2);
 	.bg-color-#{$key} {
-		background-color : $value
+		background-color : $value;
+		background-image : url('#{$key}.jpg');
 	}
 }
 [ui-view]{
