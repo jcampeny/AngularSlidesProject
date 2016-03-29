@@ -1,5 +1,5 @@
 
-var app = angular.module("app",['templates-dist', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngResource', 'angular-gestures'])
+var app = angular.module("app",['templates-dist', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngResource', 'angular-gestures', "ng.deviceDetector"])
 .controller("mainController", [ '$scope', 'ArrayService', '$document', 'scrollService','$state','stateSection','$animate','preloader', function($scope, ArrayService, $document, scrollService,$state,stateSection, $animate,preloader) {
 	var direction = null;
 	var states = stateSection.getStates();
@@ -29,6 +29,7 @@ var app = angular.module("app",['templates-dist', 'ui.router', 'ui.bootstrap', '
 		if(state.next === undefined && direction == "down"){canScroll = false;}
 		return canScroll;
 	}
+
         
 }])
 .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$resourceProvider', '$httpProvider',

@@ -15,7 +15,10 @@ module.exports = function(grunt) {
     "bower_components/hammerjs/hammer.min.js",
     "bower_components/angular-gestures/gestures.min.js",
     "bower_components/jquery/dist/jquery.min.js",
-    "bower_components/bootstrap/dist/js/bootstrap.min.js"
+    "bower_components/bootstrap/dist/js/bootstrap.min.js",
+    "bower_components/re-tree/re-tree.min.js",
+    "bower_components/ng-device-detector/ng-device-detector.min.js",
+    "bower_components/angular-gestures/gestures.min.js"
   ];
 
   var vendorStyles = [
@@ -66,7 +69,7 @@ module.exports = function(grunt) {
         separator: '\n'
       },
       dist: {
-        src: [ 'app/core/app.js', 'app/services/*.js','app/components/**/*.js', 'tmp/*.js', 'app/core/launch.js'], // Include redundant core/*.js to process it first and create angular main module
+        src: [ 'app/core/app.js', 'app/core/resize-directive.js' ,'app/services/*.js','app/components/**/*.js', 'tmp/*.js', 'app/core/launch.js'], // Include redundant core/*.js to process it first and create angular main module
         dest: 'dist/app.js'
       },
       distVendorJs: {
