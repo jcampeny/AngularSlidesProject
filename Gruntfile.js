@@ -69,7 +69,7 @@ module.exports = function(grunt) {
         separator: '\n'
       },
       dist: {
-        src: [ 'app/core/app.js', 'app/core/resize-directive.js' ,'app/services/*.js','app/components/**/*.js', 'tmp/*.js', 'app/core/launch.js'], // Include redundant core/*.js to process it first and create angular main module
+        src: [ 'app/core/app.js', 'app/core/resize-directive.js', 'app/core/animations-content-directive.js','app/services/*.js','app/components/**/*.js', 'tmp/*.js', 'app/core/launch.js'], // Include redundant core/*.js to process it first and create angular main module
         dest: 'dist/app.js'
       },
       distVendorJs: {

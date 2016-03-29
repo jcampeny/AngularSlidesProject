@@ -1,6 +1,7 @@
 @import 'vars';
 @import 'mixins';
 @import '../components/section/section';
+@import 'animations';
 
 body,
 html,
@@ -76,20 +77,8 @@ app-section,
   top: 100%;
   @include opacity(0);
 }
-/*testing*/
-body:before {
-	    position:absolute;
-    z-index:-1;
-    opacity: 0 !important;
- /*  content: 
-   		     url("section1.jpg")
-			 url("section2.jpg")
-			 url("section2-subsection1.jpg")
-			 url("section2-subsection2.jpg")
-			 url("section3.jpg")
-			 url("section3-subsection1.jpg")
-			 url("section3-subsection2.jpg")
-			 url("section3-subsection3.jpg")
-			 url("section3-subsection4.jpg")
-			 url("section4.jpg");*/
+/*animation content*/
+animation-in {
+	position: absolute;
 }
+/**/

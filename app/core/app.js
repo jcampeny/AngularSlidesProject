@@ -105,4 +105,3 @@ app.animation('.section-container', ['stateSection','animationService' , functio
 	}
 }]);
 
-
