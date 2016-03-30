@@ -2,7 +2,7 @@ angular.module('app').directive('loadingPage', function ($animate, preloader) {
   return {
     restrict: 'C',
     link : function ($scope, element) {
-    	var loadImages = [
+    	/*var loadImages = [
     		'../dist/section9.jpg',
     		'../dist/section4.jpg',
     		'../dist/section2.jpg',
@@ -16,9 +16,9 @@ angular.module('app').directive('loadingPage', function ($animate, preloader) {
     		'../dist/section2-subsection2.jpg'
     	];
 
-    	preloader.preload(loadImages ).then(function() {
+    	preloader.preload(loadImages ).then(function() {*/
 			$scope.loadingState = "loaded";
-		});
+		/*});*/
         
     }
   };
