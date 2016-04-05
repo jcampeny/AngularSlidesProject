@@ -5,15 +5,24 @@ var app = angular.module("app",['templates-dist', 'ui.router', 'ui.bootstrap', '
 	var states = stateSection.getStates();
 
 	var loop = false;
-	$document.bind('mousewheel', function(e){
+	$document.bind('mousewheel DOMMouseScroll', function(e){
         direction = scrollService.getDirectionOnMouseWheel(e);
-        moveContent(direction);
-
+        if(direction !==""){
+        	moveContent(direction);        	
+        }
 	});
+
 	$document.bind('touchmove', function(e){
         direction = scrollService.getDirectionOnTouchMove(e);
         moveContent(direction);
 	});	
+
+	$document.bind('keydown', function (e) {
+		var key = e.keyCode;
+		if(key==39 || key==34 || key==40){e.preventDefault();moveContent("down");}
+
+		if(key==37|| key==33 || key==38){e.preventDefault();moveContent("up");}
+	});
 
 	function moveContent(direction){
 		var state = stateSection.getStatePosition($state.current, states);

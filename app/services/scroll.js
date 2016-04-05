@@ -12,9 +12,16 @@ angular.module('app').service("scrollService",[ '$document', function($document)
 	};
 
 	function getDirectionOnMouseWheel(e){//mouseScroll up or down
-        var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
-        direction = (delta < 0) ?  "down" :   "up";
-        return direction;
+        var delta = parseInt(e.wheelDelta || -e.detail);
+
+        var sensitive = 20;
+        var browser = deviceDetector.browser;
+
+        if(browser == 'firefox'){delta = delta*40;}
+
+        if(delta < sensitive*(-1)){return "down";}
+        if(delta > sensitive){return "up";}
+        return "";
 	}
 	function getDirectionOnTouchMove(e){//mobileTouchMove up down left right
 		var direction = null;
