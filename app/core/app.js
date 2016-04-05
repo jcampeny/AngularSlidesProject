@@ -1,5 +1,5 @@
 
-var app = angular.module("app",['templates-dist', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngResource', 'angular-gestures', "ng.deviceDetector"])
+var app = angular.module("app",['templates-dist', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngResource', 'angular-gestures', "ng.deviceDetector", "svgEkd"])
 .controller("mainController", [ '$scope', 'ArrayService', '$document', 'scrollService','$state','stateSection','$animate','preloader', function($scope, ArrayService, $document, scrollService,$state,stateSection, $animate,preloader) {
 	var direction = null;
 	var states = stateSection.getStates();
