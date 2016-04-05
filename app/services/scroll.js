@@ -1,5 +1,5 @@
 
-angular.module('app').service("scrollService",[ '$document', function($document) {
+angular.module('app').service("scrollService",[ '$document','deviceDetector', function($document,deviceDetector) {
 	var lastX = 0;
 	var lastY = 0;
 	$document.bind('touchstart', function(e){//primera posición para touchmove
