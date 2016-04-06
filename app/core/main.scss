@@ -19,14 +19,14 @@ app-section,
 .section {
 	color: white;
 	position: absolute;
-	font-size: 20em;
+	//font-size: 20em;
 }
 .sub-section {
-	font-size: 10em;
+	//font-size: 10em;
 }
 .subsection-title{
 	position: absolute;
-	font-size: 20em;
+	//font-size: 20em;
 	color: white;
 	z-index: 1;
 }
@@ -34,8 +34,9 @@ app-section,
 	$key: nth($color, 1);
 	$value: nth($color, 2);
 	.bg-color-#{$key} {
-		background-color : $value;
-		background-image : url('section9.jpg');
+		//background-color : $value;
+		//background-image : url('section9.jpg');
+		background-color : white;
 	}
 }
 [ui-view]{

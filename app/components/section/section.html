@@ -1,12 +1,17 @@
 <style type="text/css">
-	.svg-test{
-		width:100%;
+	.svg-test,
+	.svg-test-2{
+		width:50%;
 		height: 100%;
 		position:absolute;
+	}
+	.svg-test-2{
+		right: 0;
 	}
 </style>
 <div  class="section" ng-class="bgColor"> 
 	<animation-in type="animated infinite bounce" delay="2" >{{state}}</animation-in>
-	<svg-container name="svg" class="svg-test"></svg-container>
+	<svg-container name="svg1" class="svg-test"></svg-container>
+	<svg-container name="svg2" class="svg-test-2"></svg-container>
 </div>
 <!-- seccciones sin subsecciones-->
