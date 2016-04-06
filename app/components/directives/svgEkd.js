@@ -36,9 +36,14 @@ svgEkd.directive('circle', ['svgService', function(svgService) {
 		},
 		link: function (s, e, a){
 			if(s.animation != "false" && !e.parent().attr("stagger")){
-				var time = s.time || 1;
-				var delay = s.delay || 0;
-				svgService.circleAnimation(e, a, time, delay, s.direction);
+				var stats = {
+					animation : s.animation,
+					time : s.time || 1,
+					delay : s.delay || 0,
+					direction : s.direction,
+					type : "circle"
+				};
+				svgService.manager(e, a, stats);
 			}
 		}
 	};
@@ -56,10 +61,15 @@ svgEkd.directive('line', ['svgService', function(svgService) {
 		},
 		link: function (s, e, a){
 			if(s.animation != "false" && !e.parent().attr("stagger")){
-				var time = s.time || 1;
-				var delay = s.delay || 0;
-				svgService.lineAnimation(e, a, time, delay, s.direction);
-                
+				var stats = {
+					animation : s.animation,
+					time : s.time || 1,
+					delay : s.delay || 0,
+					direction : s.direction,
+					type : "line"
+				};
+				svgService.manager(e, a, stats);
+
 			}
 		}
 	};
@@ -78,10 +88,17 @@ svgEkd.directive('path', ['svgService', function(svgService) {
 		link: function (s, e, a){
 			
 			if(s.animation != "false" && !e.parent().attr("stagger")){
-				var time = s.time || 1;
-				var delay = s.delay || 0;
-				svgService.pathAnimation(e, a, time, delay, s.direction);
-                
+				var stats = {
+					animation : s.animation,
+					time : s.time || 1,
+					delay : s.delay || 0,
+					direction : s.direction,
+					type : "path"
+				};
+				svgService.manager(e, a, stats);
+
+
+
 			}
 		}
 	};
@@ -100,10 +117,15 @@ svgEkd.directive('polyline', ['svgService', function(svgService) {
 		link: function (s, e, a){
 			
 			if(s.animation != "false" && !e.parent().attr("stagger")){
-				var time = s.time || 1;
-				var delay = s.delay || 0;
-				svgService.polyLineAnimation(e, a, time, delay, s.direction);
-                
+				var stats = {
+					animation : s.animation,
+					time : s.time || 1,
+					delay : s.delay || 0,
+					direction : s.direction,
+					type : "polyline"
+				};
+				svgService.manager(e, a, stats);
+
 			}
 		}
 	};
@@ -121,11 +143,14 @@ svgEkd.directive('polygon', ['svgService', function(svgService) {
 		link: function (s, e, a){
 			
 			if(s.animation != "false" && !e.parent().attr("stagger")){
-				var time = s.time || 1;
-				var delay = s.delay || 0;
-				
-				svgService.polygonAnimation(e, a, time, delay, s.direction);
-                
+				var stats = {
+					animation : s.animation,
+					time : s.time || 1,
+					delay : s.delay || 0,
+					direction : s.direction,
+					type : "polygon"
+				};
+				svgService.manager(e, a, stats);  
 			}
 		}
 	};
@@ -141,15 +166,38 @@ svgEkd.directive('rect', ['svgService', function(svgService) {
 			direction : "@"
 		},
 		link: function (s, e, a){
-			
 			if(s.animation != "false" && !e.parent().attr("stagger")){
-				var time = s.time || 1;
-				var delay = s.delay || 0;
-				var direction = s.direction || "up";
-
-				svgService.rectAnimation(e, a, time, delay, direction);
+				var stats = {
+					animation : s.animation,
+					time : s.time || 1,
+					delay : s.delay || 0,
+					direction : s.direction || "up",
+					type : "rect"
+				};
+				svgService.manager(e, a, stats);   
+			}
+		}
+	};
+}]);
+svgEkd.directive('text', ['svgService', function(svgService) {
+	return {
+		restrict : 'E',
+		require : '^^svgContainer',
+		scope : {
+			animation : "@",
+			time : "@",
+			delay : "@" 
+		},
+		link: function(s, e, a) {
+			if(s.animation != "false" && !e.parent().attr("stagger")){
+				var stats = {
+					animation : s.animation,
+					time : s.time || 1,
+					delay : s.delay || 0,
+					type : "text"
+				};
+				svgService.manager(e, a, stats); 
 				
-                
 			}
 		}
 	};
@@ -170,7 +218,7 @@ svgEkd.directive('g', ['svgService', '$interval', function(svgService, $interval
 				var delay = s.delay || 0;
 				rect = e.find('rect');
 				if(rect){
-					svgService.staggerRect(rect, time, delay, s.direction);
+					svgService.staggerRect(rect, time, delay, a.direction);
 				}
 			}
 
@@ -181,7 +229,43 @@ svgEkd.directive('g', ['svgService', '$interval', function(svgService, $interval
 //SERVICES
 
 svgEkd.service('svgService', function($interval) {
+	return {
+		manager : manager,
+		setSizeToSvg : setSizeToSvg,
+		staggerRect : staggerRect,
+	};
 
+	function manager(e, a, stats) {
+		if (stats.animation == "fadeout"){
+			animateFadeOut(e, a, stats.time, stats.delay);
+		}else if(stats.animation == "fadein") {
+			animateFadeIn(e, a, stats.time, stats.delay);
+		}else {
+			switch(stats.type) {
+		    case "rect":
+		        rectAnimation(e, a, stats.time, stats.delay, stats.direction); 
+		        break;
+		    case "polygon":
+		        polygonAnimation(e, a, stats.time, stats.delay, stats.direction); 
+		        break;
+		    case "polyline":
+		    	polyLineAnimation(e, a, stats.time, stats.delay, stats.direction);
+		    	break;
+		    case "path":
+		    	pathAnimation(e, a, stats.time, stats.delay, stats.direction);
+		    	break;
+		    case "line":
+		    	lineAnimation(e, a, stats.time, stats.delay, stats.direction);
+		    	break;
+		    case "circle":
+		    	circleAnimation(e, a, stats.time, stats.delay, stats.direction);
+		    	break;
+	        default:
+	            animateFadeIn(e, a, stats.time, stats.delay);
+			}
+		}
+	}
+	
 	function animateDash(path, e, time, delay, direction){
 		path = (direction=="reverse") ? -(path) : path;
 		var start = {//start state
@@ -248,18 +332,13 @@ svgEkd.service('svgService', function($interval) {
         return path;  
 	}
 
-	return {
-		setSizeToSvg : setSizeToSvg,
-		rectAnimation : rectAnimation,
-		circleAnimation : circleAnimation,
-		lineAnimation : lineAnimation,
-		pathAnimation : pathAnimation,
-		polyLineAnimation : polyLineAnimation,
-		polygonAnimation : polygonAnimation,
-		staggerRect : staggerRect
 
-	};
-
+	function animateFadeIn(e, a, time, delay){
+		TweenLite.fromTo(e, time, {opacity : 0}, {opacity : 1, delay : delay});
+	}
+	function animateFadeOut(e, a, time, delay){
+		TweenLite.fromTo(e, time, {opacity : 1}, {opacity : 0, delay : delay});
+	}
 	function setSizeToSvg(e){
 			var svg = e.find("svg");
 			var w = $(e).width();
@@ -277,7 +356,8 @@ svgEkd.service('svgService', function($interval) {
 			if(e[i] !== undefined){
 				var a = {
 					height : $(e[i]).attr("height"),
-					width : $(e[i]).attr("width")
+					width : $(e[i]).attr("width"),
+					direction : $(e[i]).attr("direction")
 				};
 				rectAnimation(e[i], a, t, 0, direction);
 				i++;
@@ -289,13 +369,16 @@ svgEkd.service('svgService', function($interval) {
 	function rectAnimation(e, a, time, delay, direction) {
 		var y = a.height;
 		var x = a.width;
-
+		
+		if(a.direction !== undefined){
+			direction = a.direction;
+		}
 		switch(direction) {
 		    case "up":
 		        TweenLite.fromTo(e, time, {scaleY: '0', y: y}, {scaleY: 1, y:0 , delay: delay}); 
 		        break;
 		    case "down":
-		        TweenLite.fromTo(e, time, {scaleX: '0'}, {scaleY: 1, delay: delay});
+		        TweenLite.fromTo(e, time, {scaleY: '0'}, {scaleY: 1, delay: delay});
 		        break;
 		    case "left":
 		        TweenLite.fromTo(e, time, {scaleX: '0', x: x}, {scaleX: 1, x:0 , delay: delay}); 
