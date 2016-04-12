@@ -18,7 +18,8 @@ module.exports = function(grunt) {
     "bower_components/bootstrap/dist/js/bootstrap.min.js",
     "bower_components/re-tree/re-tree.min.js",
     "bower_components/ng-device-detector/ng-device-detector.min.js",
-    "bower_components/angular-gestures/gestures.min.js"
+    "bower_components/angular-gestures/gestures.min.js",
+    "bower_components/gsap/src/minified/*"
   ];
 
   var vendorStyles = [
