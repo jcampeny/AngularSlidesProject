@@ -15,7 +15,7 @@ svgEkd.directive('svgContainer', ['svgService','$window', function(svgService, $
 			angular.element($window).on('resize' , function() {
                 svgService.setSizeToSvg(e);
             });
-			
+
 		},
 		templateUrl : function(e, a) {
 			return '../app/components/directives/'+a.name+'.svg';
@@ -174,6 +174,7 @@ svgEkd.directive('rect', ['svgService', function(svgService) {
 					direction : s.direction || "up",
 					type : "rect"
 				};
+				
 				svgService.manager(e, a, stats);   
 			}
 		}
@@ -243,7 +244,11 @@ svgEkd.service('svgService', function($interval) {
 		}else {
 			switch(stats.type) {
 		    case "rect":
-		        rectAnimation(e, a, stats.time, stats.delay, stats.direction); 
+			    if(stats.animation != "path"){
+					rectAnimation(e, a, stats.time, stats.delay, stats.direction);
+			    }else {
+			    	rectPathAnimation(e, a, stats.time, stats.delay, stats.direction);
+			    }
 		        break;
 		    case "polygon":
 		        polygonAnimation(e, a, stats.time, stats.delay, stats.direction); 
@@ -387,6 +392,11 @@ svgEkd.service('svgService', function($interval) {
 	            TweenLite.fromTo(e, time, {scaleX: '0'}, {scaleX: 1, delay: delay});
 	            break;
 		}
+	}
+	function rectPathAnimation(e, a, time, delay, direction){
+		var path = (a.height*2) + (a.width*2);
+
+		animateDash(path, e, time, delay, direction);
 	}
 	function circleAnimation(e, a, time, delay, direction){
 		var radius = a.r;
