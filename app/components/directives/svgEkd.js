@@ -229,7 +229,7 @@ svgEkd.directive('g', ['svgService', '$interval', function(svgService, $interval
 }]);
 //SERVICES
 
-svgEkd.service('svgService', function($interval) {
+svgEkd.service('svgService', function($interval, $q) {
 	return {
 		manager : manager,
 		setSizeToSvg : setSizeToSvg,
@@ -273,17 +273,20 @@ svgEkd.service('svgService', function($interval) {
 	
 	function animateDash(path, e, time, delay, direction){
 		path = (direction=="reverse") ? -(path) : path;
+		var defered = $q.defer();
+        var promise = defered.promise;
 		var start = {//start state
 			"stroke-dashoffset": path,
 			"stroke-dasharray": Math.abs(path)
 		};
 		var end = { //end state
 			"stroke-dashoffset": '0', 
-			delay: delay 
+			delay: delay,
+			onComplete : function() {defered.resolve();}
 		};
 
 		TweenLite.fromTo(e, time, start, end);
-
+		return promise;
 	}
 	function calculatePathPoly(e){
 		var points = e.attr('points');
@@ -426,8 +429,12 @@ svgEkd.service('svgService', function($interval) {
 	}
 	function polygonAnimation(e, a, time, delay, direction){
 		var path = calculatePathPoly(e);
+		var color = e[0].style.fill || a.fill;
 
-		animateDash(path, e, time, delay, direction);
-		//todo FILL
+		TweenLite.set(e, {fill: "#ffffff"});
+
+		animateDash(path, e, time, delay, direction).then(function() {
+			TweenLite.to(e, time, {fill: color});
+		});
 	}
 });
